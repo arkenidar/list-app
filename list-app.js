@@ -1,6 +1,11 @@
 
-// install this ms-vs-code extension to have better syntax highlighting in /*html*/`es6-strings`
+// setup for editing tools:
+
+// VSCODE: install this ms-vs-code extension to have better syntax highlighting in /*html*/`es6-strings`
 // https://marketplace.visualstudio.com/items?itemName=Tobermory.es6-string-html
+
+// SUBLIME TEXT: install this in sublime-text to have syntax highlighting in ES6 strings (template literals)
+// https://forum.sublimetext.com/t/javascript-es6-template-literals-syntax-for-html/18242/3
 
 // html of item of list from data content
 function list_item_html(item){
