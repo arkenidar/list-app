@@ -71,18 +71,23 @@ function list_setup(list_content, main_node){
 	// button for adding
 	// pulsante di aggiunta
 	main_node.innerHTML = /*html*/`<button onclick="list_item_add(this)">add</button>`
+	
 	// viewing filters
 	// filtraggio visivo, visualizzazione condizionale
-	main_node.innerHTML += /*html*/` view: `
+	var html = ""
+	html += /*html*/` <div style="display: inline;" class="views">view: `
 	// filter:all is showing all
 	// filtro per mostrare tutti gli elementi
-	main_node.innerHTML += /*html*/`<button onclick="list_visually_filter('all',this.parentNode)">all</button>`
+	html += /*html*/`<button onclick="list_visually_filter('all',this.parentNode.parentNode)" class="view-all">all</button>`
 	// filter:todo is showing unchecked items
 	// filtro per mostrare solo i task non spuntati, non completati
-	main_node.innerHTML += /*html*/`<button onclick="list_visually_filter('todo',this.parentNode)">todo</button>`
+	html += /*html*/`<button onclick="list_visually_filter('todo',this.parentNode.parentNode)" class="view-todo">todo</button>`
 	// filter:done is showing checked items
 	// filtro per mostrare solo i task completati ovvero spuntati
-	main_node.innerHTML += /*html*/`<button onclick="list_visually_filter('done',this.parentNode)">done</button>`
+	html += /*html*/`<button onclick="list_visually_filter('done',this.parentNode.parentNode)" class="view-done">done</button>`
+	html += /*html*/`</div>`
+	main_node.innerHTML += html
+
 	// list node is initially empty
 	// il nodo principale è inizialmente vuoto
 	main_node.innerHTML += /*html*/`<div></div>`
@@ -107,6 +112,11 @@ function list_setup(list_content, main_node){
 // visual filter, to show or hide items
 // filtro visivo, per mostrare o nascondere elementi, items
 function list_visually_filter(criterion, main_node){
+	for(var view_button of main_node.querySelectorAll(".views button")){
+		view_button.classList.remove("view-selected")
+	}
+	main_node.querySelector(".views button.view-"+criterion).classList.add("view-selected")
+
 	// index of item (they are list-like). first index is zero.
 	// indice dell'item (come indice di lista). il primo è zero.
 	var item_index = 0
