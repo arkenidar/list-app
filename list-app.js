@@ -81,7 +81,7 @@ function list_setup(list_content, main_node){
 	html += /*html*/`<button onclick="list_visually_filter('all',this.parentNode.parentNode)" class="view-all">all</button>`
 	// filter:todo is showing unchecked items
 	// filtro per mostrare solo i task non spuntati, non completati
-	html += /*html*/`<button onclick="list_visually_filter('todo',this.parentNode.parentNode)" class="view-todo">todo</button>`
+	html += /*html*/`<button onclick="list_visually_filter('todo',this.parentNode.parentNode)" class="view-todo">to do</button>`
 	// filter:done is showing checked items
 	// filtro per mostrare solo i task completati ovvero spuntati
 	html += /*html*/`<button onclick="list_visually_filter('done',this.parentNode.parentNode)" class="view-done">done</button>`
