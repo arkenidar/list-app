@@ -12,10 +12,10 @@
 
 // html of item of list from data content
 // prepara codice html per un elemento (iniziale o aggiunto successivamente) della lista, dai dati associati
-function list_item_html(item){
+function list_item_html(item) {
   // proper check the check-box
   // casella di spunta elemento grafico spuntato o meno
-  var done = item[1]=="done"?"checked":""
+  var done = item[1] == "done" ? "checked" : ""
   // handle checkbox input
   // casella di spunta che risponde all'uso modificando i dati associati
   var checkbox = /*html*/`<input type="checkbox" ${done} oninput="list_checkbox_input(this)">`
@@ -38,11 +38,11 @@ function list_item_add(button) {
   var task = prompt('task')
   // you can cancel
   // inserimento annullabile
-  if(task==null) return
+  if (task == null) return
   // initial item content
   // contenuto iniziale della voce/elemento della lista
-  var item = [task,'todo']
-  
+  var item = [task, 'todo']
+
   // refer to main node
   // nodo principale, in esso associo i dati memorizzati
   var main_node = button.parentNode
@@ -59,19 +59,19 @@ function list_item_add(button) {
 
   // filter is set
   // il filtro visivo è impostato (per il mostra o nascondi)
-  list_visually_filter('all',button.parentNode)
+  list_visually_filter('all', button.parentNode)
 }
 
 // setup the list
 // imposta la lista, situazione iniziale
-function list_setup(list_content, main_node){
+function list_setup(list_content, main_node) {
   // list content in main node data content
   // il "contenuto dati" è memorizzato nel nodo principale
   main_node.data_content = list_content
   // button for adding
   // pulsante di aggiunta
   main_node.innerHTML = /*html*/`<button onclick="list_item_add(this)">add</button>`
-  
+
   // viewing filters
   // filtraggio visivo, visualizzazione condizionale
   var html = ""
@@ -96,7 +96,7 @@ function list_setup(list_content, main_node){
   var list_node = main_node.lastChild
   // iterate list items as data content
   // scorri gli elementi, nei dati associati alla parte visibile (e viceversa)
-  for(var item of list_content){
+  for (var item of list_content) {
     // add items as html. html from data content
     // aggiunge la parte html visibile preparata in base ai dati non visibili ma manipolabili (parte View e parte Model del MVC)
     list_node.innerHTML += list_item_html(item)
@@ -111,31 +111,31 @@ function list_setup(list_content, main_node){
 
 // visual filter, to show or hide items
 // filtro visivo, per mostrare o nascondere elementi, items
-function list_visually_filter(criterion, main_node){
-  for(var view_button of main_node.querySelectorAll(".views button")){
+function list_visually_filter(criterion, main_node) {
+  for (var view_button of main_node.querySelectorAll(".views button")) {
     view_button.classList.remove("view-selected")
   }
-  main_node.querySelector(".views button.view-"+criterion).classList.add("view-selected")
+  main_node.querySelector(".views button.view-" + criterion).classList.add("view-selected")
 
   // index of item (they are list-like). first index is zero.
   // indice dell'item (come indice di lista). il primo è zero.
   var item_index = 0
   // all items are iterated
   // scorri tutti gli item, tutti gli elementi della lista delle attività dell'utente dell'app "To-Do", "cose Da Fare"
-  for(var item of main_node.querySelectorAll(".list_item_class")){
+  for (var item of main_node.querySelectorAll(".list_item_class")) {
     // show item by default
     // item mostrato di default
     var showed = true
     // if filtering consider the criterion
     // se con filtraggio considera il criterio di filtraggio
-    if(criterion=='todo' || criterion=='done'){
+    if (criterion == 'todo' || criterion == 'done') {
       // show or not by item content and criterion
       // mostra o no in base all'item, le sue caratteristiche, e al criterio di filtraggio in base alle caratteristiche
-      showed = main_node.data_content[item_index][1]==criterion
+      showed = main_node.data_content[item_index][1] == criterion
     }
     // style the item accordingly
     // lo stile dell'item è impostato consequenzialmente
-    item.style.display = showed?"":"none"
+    item.style.display = showed ? "" : "none"
     // keep the index proper: next item
     // prossimo indice di item
     item_index += 1
@@ -147,7 +147,7 @@ function list_visually_filter(criterion, main_node){
 
 // this helper is useful in the functionalities that follow, below
 // questa funzionalità è utile dopo, seguono suoi usi
-function list_content_item_access(input_node){
+function list_content_item_access(input_node) {
   // dom node of list item
   // nodo del documento/DOM dell'elemento della lista delle attività (o di altro, "todomvc" è un esempio tra i tanti)
   var list_item_node = input_node.parentNode
@@ -165,18 +165,18 @@ function list_content_item_access(input_node){
   var list_content = main_node.data_content
   // returns the access pair of list and list index
   // fornisci in uscita il paio "lista" & "indice di lista" per manipolazioni dei dati (uso a seguire)
-  return [ list_content, list_content_index ]
+  return [list_content, list_content_index]
 }
 
 // input: checkbox
 // input di tipo casella di spunta ovvero check-box
-function list_checkbox_input(checkbox){
+function list_checkbox_input(checkbox) {
   // access the item
   // accesso all'item
-  var [ list_content, list_content_index ] = list_content_item_access(checkbox)
+  var [list_content, list_content_index] = list_content_item_access(checkbox)
   // toggle checkbox
   // alterna spunta con non-spunta e viceversa (alternare, "to toggle")
-  list_content[list_content_index][1] = list_content[list_content_index][1]=="todo"?"done":"todo"
+  list_content[list_content_index][1] = list_content[list_content_index][1] == "todo" ? "done" : "todo"
   // main node is referred
   // il nodo principale è riferito (usi successivi)
   var main_node = checkbox.parentNode.parentNode.parentNode
@@ -187,10 +187,10 @@ function list_checkbox_input(checkbox){
 
 // input: text
 // input di tipo testo
-function list_text_input(text){
+function list_text_input(text) {
   // access the item
   // accedi all'elemento
-  var [ list_content, list_content_index ] = list_content_item_access(text)
+  var [list_content, list_content_index] = list_content_item_access(text)
   // set text of item
   // imposta il testo dell'elemento di lista dei task o compiti/attività
   list_content[list_content_index][0] = text.value
@@ -198,13 +198,13 @@ function list_text_input(text){
 
 // action: remove
 // azione di rimozione voce dell'elenco, voce o item di lista
-function list_item_remove(button){
+function list_item_remove(button) {
   // access the item
   // riferendosi all'item ...
-  var [ list_content, list_content_index ] = list_content_item_access(button)
+  var [list_content, list_content_index] = list_content_item_access(button)
   // remove item from list content
   // ... lo si rimuove, sia dalla lista come variabile JavaScript
-  list_content.splice(list_content_index,1)
+  list_content.splice(list_content_index, 1)
   // ... sia lo si rimuove dalla gerarchia DOM, l' "albero" DOM come dicevo, degli elementi del documento
   // remove the item dom node
   button.parentNode.remove()
@@ -212,7 +212,7 @@ function list_item_remove(button){
 
 // this dom operation is missing in default
 // questa operazione sul documento DOM manca nella dotazione standard del web-browser, ma è definibile, quindi aggiungibile
-function dom_child_index(element){
+function dom_child_index(element) {
   // index of child element in dom
   // indice dell'elemento DOM "figlio" ovvero appena inferiore nella gerarchia (paragone: gerarchia di "albero genealogico")
   return Array.from(element.parentNode.children).indexOf(element)
